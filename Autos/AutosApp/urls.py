@@ -5,8 +5,8 @@ from django.contrib import admin
 
 
 urlpatterns= [
-    path('vendedores/', vendedores),
-    path('clientes/', clientes),
-    path('autos/', autos),
-    
+    path('', inicio, name = "inicio"),
+    path('vendedores/', vendedores, name = "vendedores"),
+    path('clientes/', clientes, name = "clientes"),
+    path('autos/', autos, name = "autos"),
 ]
