@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href= "{% static 'AutosApp/styles.css' %}" >
+    <title>Autos</title>
+</head>
+<body>
+    <h1>Concesionario</h1>
+    <h3>Nuestro equipo de vendedores: </h3>
+    <table>
+        <thead>
+            <td> Nombre </td>
+            <td> Apellido </td>
+                      
+        </thead>
+        {% for vendedor in vendedores %}
+        <tr>
+            <td> {{vendedor.nombre}} </td>
+            <td> {{vendedor.apellido}} </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

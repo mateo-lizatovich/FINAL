@@ -14,8 +14,10 @@ def autos(request):
     return render(request,'AutosApp/autos.html',{'autos': autos})
 
 def vendedores(request):
-    return HttpResponse('vendedores')
+    vendedores = Vendedor.objects.all()
+    return render(request,'AutosApp/vendedores.html', {'vendedores': vendedores})
 
 def clientes(request):
-    return HttpResponse('clientes')
+    clientes = Cliente.objects.all()
+    return render(request,'AutosApp/clientes.html', {'clientes': clientes})
 
