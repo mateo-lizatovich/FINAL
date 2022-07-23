@@ -19,3 +19,6 @@ def clientes(request):
     clientes = Cliente.objects.all()
     return render(request,'AutosApp/clientes.html', {'clientes': clientes})
 
+def base(request):
+    return render(request, 'AutosApp/base.html', {})
+

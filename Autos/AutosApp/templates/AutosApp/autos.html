@@ -1,31 +1,28 @@
+{% extends 'AutosApp/base.html' %}
+
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href= "{% static 'AutosApp/styles.css' %}" >
-    <title>Autos</title>
-</head>
-<body>
-    <h1>Concesionario</h1>
-    <h3>Autos disponibles: </h3>
-    <table>
-        <thead>
-            <td> Marca </td>
-            <td> Modelo </td>
-            <td> Año </td>
-            <td> Precio US$ </td>            
-        </thead>
-        {% for auto in autos %}
-        <tr>
-            <td> {{auto.marca}} </td>
-            <td> {{auto.modelo}} </td>
-            <td> {{auto.año}} </td>
-            <td> {{auto.precio}} </td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
+
+{% block tituloPagina %}
+Concesionario - Vehiculos disponibles
+{% endblock %}
+
+{% block contenidoPagina %}
+
+<h2 class="text-center mb-5"> Vehiculos disponibles :</h2>
+<table class="table table-dark table-striped">
+    <thead>
+        <td> Marca </td> 
+        <td> Modelo </td>
+        <td> Año </td>
+        <td> Precio US$ </td>            
+    </thead>
+    {% for auto in autos %}
+    <tr>
+        <td> {{auto.marca}} </td>
+        <td> {{auto.modelo}} </td>
+        <td> {{auto.año}} </td>
+        <td> {{auto.precio}} </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
