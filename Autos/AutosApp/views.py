@@ -26,6 +26,16 @@ def formularios(request):
     return render(request, 'AutosApp/formularios.html', {})
 
 def buscar_auto(request):
-    autos = Auto.objects.all()
-    return render(request, 'AutosApp/buscar_auto.html', {"autos": autos})
+    if request.method == "POST":
+        
+        marca = request.POST["marca"]
+        
+        marcas = Auto.objects.filter(marca__icontains = marca)
+        
+        return render(request, 'AutosApp/buscar_auto.html', {"marcas": marcas})
+
+    else:
+        marcas = []
+        return render(request, 'AutosApp/buscar_auto.html', {"marcas": marcas})
+    
 

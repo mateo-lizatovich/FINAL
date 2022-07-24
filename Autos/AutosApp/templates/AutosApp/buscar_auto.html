@@ -2,15 +2,23 @@
 {% load static %}
 
 {% block contenidoPagina %}
-<p>Buscar vehiculo <form action="" method="post">
-    {% csrf_token %}
+<p>Buscar vehiculo 
+    <form action="" method="post">
+        {% csrf_token %}
 
-    <input type="text" name="auto">    
+        <input type="text" name="marca">    
 
-    <input type="submit" value="buscar">
+        <input type="submit" value="Buscar">
 
-</form>
+    </form>
 </p>
+
+<p>Resultados: </p>
+<ul>
+    {% for resultado in marcas %}
+    <li> {{resultado.marca}} {{resultado.modelo}} {{resultado.año}} </li>
+    {% endfor %}
+</ul>
 
 
 {% endblock %}
