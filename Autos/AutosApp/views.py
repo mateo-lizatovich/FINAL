@@ -1,15 +1,30 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+#from jmespath import search
 from .models import *
+from django.db.models import Q
 
 def inicio(request):
     
     return render(request,"AutosApp/index.html", {})
+
+
    
    
 def autos(request):
+    if request.method == "POST":
+        
+        search = request.POST ["search"]
+        
+        if search != "":
+            autos = Auto.objects.filter( Q(marca__icontains=search) | Q(modelo__icontains=search) | Q(año__icontains=search)| Q(precio__icontains=search)).values()
+            return render(request,'AutosApp/autos.html',{'autos': autos, "search":True, "busqueda":search})
+        
     autos = Auto.objects.all()
+    
     return render(request,'AutosApp/autos.html',{'autos': autos})
+
+
 
 def vendedores(request):
     vendedores = Vendedor.objects.all()
