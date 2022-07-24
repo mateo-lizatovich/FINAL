@@ -22,3 +22,10 @@ def clientes(request):
 def base(request):
     return render(request, 'AutosApp/base.html', {})
 
+def formularios(request):
+    return render(request, 'AutosApp/formularios.html', {})
+
+def buscar_auto(request):
+    autos = Auto.objects.all()
+    return render(request, 'AutosApp/buscar_auto.html', {"autos": autos})
+

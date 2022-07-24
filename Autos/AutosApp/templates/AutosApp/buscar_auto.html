@@ -1,0 +1,16 @@
+{% extends 'AutosApp/base.html' %}
+{% load static %}
+
+{% block contenidoPagina %}
+<p>Buscar vehiculo <form action="" method="post">
+    {% csrf_token %}
+
+    <input type="text" name="auto">    
+
+    <input type="submit" value="buscar">
+
+</form>
+</p>
+
+
+{% endblock %}
