@@ -1,8 +1,10 @@
+import re
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 #from jmespath import search
 from .models import *
 from django.db.models import Q
+from .forms import ClienteFormulario
 
 def inicio(request):
     
@@ -53,4 +55,19 @@ def buscar_auto(request):
         marcas = []
         return render(request, 'AutosApp/buscar_auto.html', {"marcas": marcas})
     
+def crear_cliente(request):
+    if request.method == "POST":
+        
+        formulario = ClienteFormulario(request.POST)
+        
+        if formulario.is_valid():
+            info = formulario.cleaned_data
+            cliente = Cliente(nombre = info["nombre"], apellido = info["apellido"], auto_comprado = info["auto_comprado"], vendedor_nombre = info["vendedor_nombre"])
+            cliente.save()
+            
+            return redirect("clientes")
+            
+        return render(request, 'AutosApp/formularios_clientes.html', {"form": formulario})
 
+    formulario = ClienteFormulario()
+    return render(request, 'AutosApp/formularios_clientes.html', {"form": formulario})

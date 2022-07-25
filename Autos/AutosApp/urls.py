@@ -11,4 +11,5 @@ urlpatterns= [
     path('autos/', autos, name = "autos"),
     path('base/', base),
     path('buscar_auto/', buscar_auto, name = "buscar_auto"),
+    path('crear_cliente/', crear_cliente, name = "crear_cliente"),
 ]
