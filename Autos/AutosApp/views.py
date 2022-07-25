@@ -8,12 +8,35 @@ from .forms import ClienteFormulario
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
 
 def inicio(request):
     
     return render(request,"AutosApp/index.html", {})
 
+def inicio_de_sesion(request):
+    if request.method == "POST":
 
+        form = AuthenticationForm(request, data=request.POST)
+
+        if form.is_valid():
+
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect("inicio")
+            else:
+                return redirect("inicio_de_sesion")
+        else:
+            return redirect("inicio_de_sesion")
+    
+    form = AuthenticationForm()
+    
+    return render(request, 'AutosApp/login.html',{"form":form})
    
    
 def autos(request):
