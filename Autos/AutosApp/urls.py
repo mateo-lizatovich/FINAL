@@ -12,4 +12,6 @@ urlpatterns= [
     path('base/', base),
     path('buscar_auto/', buscar_auto, name = "buscar_auto"),
     path('crear_cliente/', crear_cliente, name = "crear_cliente"),
+    path('eliminar_cliente/<cliente_id>', eliminar_cliente, name = "eliminar_cliente"),
+    path('editar_cliente/<cliente_id>', editar_cliente, name = "editar_cliente"),
 ]

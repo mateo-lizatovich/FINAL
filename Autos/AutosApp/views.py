@@ -71,3 +71,35 @@ def crear_cliente(request):
 
     formulario = ClienteFormulario()
     return render(request, 'AutosApp/formularios_clientes.html', {"form": formulario})
+
+def eliminar_cliente(request,cliente_id):
+    
+     cliente = Cliente.objects.get(id=cliente_id)
+     cliente.delete()
+     
+     return redirect("clientes")
+ 
+def editar_cliente(request,cliente_id):
+    cliente = Cliente.objects.get(id=cliente_id)
+
+    if request.method == "POST":
+
+        formulario = ClienteFormulario(request.POST)
+
+        if formulario.is_valid():
+            
+            info_cliente = formulario.cleaned_data
+            
+            cliente.nombre = info_cliente["nombre"]
+            cliente.apellido = info_cliente["apellido"]
+            cliente.auto_comprado = info_cliente["auto_comprado"]
+            cliente.vendedor_nombre = info_cliente["vendedor_nombre"]
+            cliente.save()
+
+            return redirect("clientes")
+
+    # get
+    formulario = ClienteFormulario(initial={"nombre":cliente.nombre, "apellido":cliente.apellido, "auto_comprado": cliente.auto_comprado, "vendedor_nombre": cliente.vendedor_nombre})
+    
+    return render(request,"AutosApp/formularios_clientes.html",{"form":formulario})
+
