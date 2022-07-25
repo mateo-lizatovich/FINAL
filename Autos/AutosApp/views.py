@@ -5,6 +5,9 @@ from django.http import HttpResponse
 from .models import *
 from django.db.models import Q
 from .forms import ClienteFormulario
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 def inicio(request):
     
@@ -103,3 +106,25 @@ def editar_cliente(request,cliente_id):
     
     return render(request,"AutosApp/formularios_clientes.html",{"form":formulario})
 
+class ClienteList(ListView):
+    model = Cliente
+    template_name = "AutosApp/clientes_list.html"
+    
+class ClienteDetail(DetailView):
+    model = Cliente
+    template_name = "AutosApp/clientes_detail.html"
+    
+class ClienteCreate(CreateView):
+    model = Cliente
+    success_url = "/autosapp/clientes/list" #segun lucas la primer / es la diferencia entre que ande todo o explote todo
+    fields = ["nombre", "apellido", "auto_comprado", "vendedor_nombre"]
+    
+class ClienteUpdate(UpdateView):
+    model = Cliente
+    success_url = "/autosapp/clientes/list" #segun lucas la primer / es la diferencia entre que ande todo o explote todo
+    fields = ["nombre", "apellido", "auto_comprado", "vendedor_nombre"]
+    
+class ClienteDelete(DeleteView):
+    model = Cliente
+    success_url = "/autosapp/clientes/list" 
+    

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de clientes</title>
+</head>
+<body>
+    <h2>Lista de clientes: </h2>
+    <ul>
+        {% for clientes in object_list %}
+        <li>
+            Cliente: {{clientes.nombre}} {{clientes.apellido}} |
+            <a href="{% url 'clientes_detail' clientes.id %}">Ver</a>
+            <a href="{% url 'clientes_update' clientes.id %}">Editar</a>
+            <a href="{% url 'clientes_delete' clientes.id %}">Eliminar</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href=" {% url 'clientes_create' %} ">Crear cliente</a>
+</body>
+</html>

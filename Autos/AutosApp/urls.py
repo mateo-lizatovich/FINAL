@@ -14,4 +14,11 @@ urlpatterns= [
     path('crear_cliente/', crear_cliente, name = "crear_cliente"),
     path('eliminar_cliente/<cliente_id>', eliminar_cliente, name = "eliminar_cliente"),
     path('editar_cliente/<cliente_id>', editar_cliente, name = "editar_cliente"),
+    
+    
+    path('clientes/list', ClienteList.as_view(), name="clientes_list"),
+    path(r'^(?P<pk>\d+)$', ClienteDetail.as_view(), name="clientes_detail"),
+    path(r'^nuevo$', ClienteCreate.as_view(), name="clientes_create"),
+    path(r'^editar/(?P<pk>\d+)$', ClienteUpdate.as_view(), name="clientes_update"),
+    path(r'^eliminar/(?P<pk>\d+)$', ClienteDelete.as_view(), name="clientes_delete"),
 ]
