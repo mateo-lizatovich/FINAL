@@ -18,7 +18,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 
 
-
+def about(request):
+    return render(request,'AutosApp/about.html',{})
 
 def inicio(request):
     
