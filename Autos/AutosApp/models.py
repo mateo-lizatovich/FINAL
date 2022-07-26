@@ -1,5 +1,11 @@
-
 from django.db import models
+from django.contrib.auth.models import User
+
+
+class Avatar(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    imagen = models.ImageField(upload_to='avatar/', blank=True, null=True)
 
 class Auto(models.Model):
     marca = models.CharField("Marca ",max_length=30)
@@ -16,8 +22,6 @@ class Vendedor(models.Model):
         verbose_name_plural = "Vendedores"
     def __str__(self):
          return f"Nombre: {self.nombre} - Apellido: {self.apellido}"
-
-    
 
 class Cliente(models.Model):
     #from .models import Auto

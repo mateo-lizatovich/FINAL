@@ -7,6 +7,10 @@ from django.contrib import admin
 urlpatterns= [
     path('', inicio, name = "inicio"),
     path('inicio_de_sesion', inicio_de_sesion, name = "inicio_de_sesion"),
+    path('register', register_request, name="register"),
+    path('logout', logout_request, name="logout"),
+    path('editar_perfil', editar_perfil, name = "editar_perfil"),
+
     
     
     path('vendedores/',vendedores, name = "vendedores"),

@@ -1,17 +1,33 @@
 import re
+from django import http
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 #from jmespath import search
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
 from django.db.models import Q
 from .forms import ClienteFormulario
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
+from .forms import *
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+
+
+
+
 
 def inicio(request):
+    
+    if request.user.is_authenticated:
+        try:
+            avatar = Avatar.objects.get(usuario = request.user)
+        except:
+            avatar = None    
+        return render(request,"AutosApp/index.html", {"avatar": avatar})
     
     return render(request,"AutosApp/index.html", {})
 
@@ -37,8 +53,65 @@ def inicio_de_sesion(request):
     form = AuthenticationForm()
     
     return render(request, 'AutosApp/login.html',{"form":form})
+  
+def register_request(request):
+    if request.method == "POST":
+        
+        form = UserCreationForm(request.POST)
+        #form = UserRegisterForm(request.POST)
+
+        if form.is_valid():
+
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1') # es la primer contraseña, no la confirmacion
+
+            form.save() # registramos el usuario
+            # iniciamos la sesion
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect("inicio")
+            else:
+                return redirect("login")
+            
+        return render(request, 'AutosApp/register.html', {"form":form}) 
+    
+    form = UserCreationForm()
+    #form = UserRegisterForm()
+    
+    return render(request, 'AutosApp/register.html', {"form":form}) 
+
+def logout_request(request):
+    logout(request)
+    return redirect("inicio")
+ 
+@login_required     
+def editar_perfil(request):
+    user = request.user
+    
+    if request.method == "POST":
+        
+        form = UserEditForm(request.POST) # cargamos datos llenados
+        
+        if form.is_valid():
+
+            info = form.cleaned_data
+            user.email = info["email"]
+            user.first_name = info["first_name"]
+            user.last_name = info["last_name"]
+            # user.password = info["password1"]
+
+            user.save()
+
+            return redirect("inicio")
+        
+    else:
+        form = UserEditForm(initial = {"email": user.email} )
+    
+    return render(request, 'AutosApp/editar_perfil.html', {"form": form})
    
-   
+@staff_member_required
 def autos(request):
     if request.method == "POST":
         
@@ -51,8 +124,6 @@ def autos(request):
     autos = Auto.objects.all()
     
     return render(request,'AutosApp/autos.html',{'autos': autos})
-
-
 
 def vendedores(request):
     vendedores = Vendedor.objects.all()
@@ -150,4 +221,6 @@ class ClienteUpdate(UpdateView):
 class ClienteDelete(DeleteView):
     model = Cliente
     success_url = "/autosapp/clientes/list" 
+
+
     

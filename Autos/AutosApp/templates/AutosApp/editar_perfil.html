@@ -1,0 +1,24 @@
+{% extends 'AutosApp/base.html' %}
+
+{% load static %}
+
+{% block tituloPagina %}
+Editar perfil - Concesionario
+{% endblock %}
+
+{% block contenidoPagina %}
+<br><br>
+
+<section class="bg-light py-5">
+    <div class="container px-5">
+        <h1>Editar perfil </h1>
+        <br>
+        <h5>Estas editando al usuario "{{user.username}}": </h5>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</section>   
+{% endblock %}
