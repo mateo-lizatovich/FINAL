@@ -1,0 +1,22 @@
+{% extends 'AutosApp/base.html' %}
+
+{% load static %}
+
+{% block tituloPagina %}
+Agregar Imagen - Concesionario
+{% endblock %}
+
+{% block contenidoPagina %}
+<br><br>
+
+<section class="bg-light py-5">
+    <div class="container px-5">
+        <h1>Avatar </h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</section>   
+{% endblock %}

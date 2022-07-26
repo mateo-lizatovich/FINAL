@@ -65,8 +65,8 @@ def register_request(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1') # es la primer contraseña, no la confirmacion
 
-            form.save() # registramos el usuario
-            # iniciamos la sesion
+            form.save() 
+            
             user = authenticate(username=username, password=password)
 
             if user is not None:
@@ -110,7 +110,30 @@ def editar_perfil(request):
         form = UserEditForm(initial = {"email": user.email} )
     
     return render(request, 'AutosApp/editar_perfil.html', {"form": form})
-   
+
+@login_required
+def agregar_avatar(request):
+    if request.method =="POST":
+        form = AvatarForm(request.POST, request.FILES)
+
+        if form.is_valid():
+
+            user = User.objects.get(username=request.user.username) # usuario con el que estamos loggueados
+
+            avatar = Avatar(usuario=user, imagen=form.cleaned_data["imagen"])
+
+            avatar.save()
+            
+            return redirect("inicio")
+
+    else:
+        form = AvatarForm()
+    
+    return render(request,"AutosApp/agregar_avatar.html",{"form":form})
+    
+    
+    
+
 @staff_member_required
 def autos(request):
     if request.method == "POST":

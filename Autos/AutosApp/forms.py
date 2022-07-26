@@ -5,6 +5,7 @@ from subprocess import CREATE_NO_WINDOW
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
+from .models import Avatar
 
 class ClienteFormulario(forms.Form):
     nombre = forms.CharField(max_length=30)
@@ -22,7 +23,7 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
         help_texts = {k:"" for k in fields}
-    
+
 class UserEditForm(UserCreationForm):
     
     email = forms.EmailField(label="Email")
@@ -37,3 +38,10 @@ class UserEditForm(UserCreationForm):
         fields = ['email', 'password1', 'password2', 'first_name', 'last_name']
 
         help_texts = {k:"" for k in fields}
+        
+class AvatarForm(forms.Form):
+    imagen = forms.ImageField(label="imagen")    
+       
+    class Meta():
+        model = Avatar
+        fields = ['imagen']     
