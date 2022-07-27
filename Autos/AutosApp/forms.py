@@ -13,6 +13,12 @@ class ClienteFormulario(forms.Form):
     auto_comprado = forms.CharField(max_length=30)
     vendedor_nombre = forms.CharField(max_length=30)
 
+class AutoFormulario(forms.Form):
+    marca = forms.CharField(max_length=30)
+    modelo = forms.CharField(max_length=30)
+    año = forms.CharField (max_length=30)
+    precio = forms.CharField(max_length=30)
+  
 class UserRegisterForm(UserCreationForm):
     #usuario = forms.CharField(label="Nombre de usuario")
     email = forms.EmailField(label="Email")
@@ -45,3 +51,4 @@ class AvatarForm(forms.Form):
     class Meta():
         model = Avatar
         fields = ['imagen']     
+        

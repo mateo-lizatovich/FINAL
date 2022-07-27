@@ -23,6 +23,9 @@ urlpatterns= [
     path('eliminar_cliente/<cliente_id>', eliminar_cliente, name = "eliminar_cliente"),
     path('editar_cliente/<cliente_id>', editar_cliente, name = "editar_cliente"),
     path('about/' , about, name = "about"),
+    path('crear_auto', crear_auto, name = "crear_auto"),
+    path('eliminar_auto/<auto_id>', eliminar_auto, name = "eliminar_auto"),
+    path('editar_auto/<auto_id>', editar_auto, name = "editar_auto"),
     
     
     path('clientes/list', ClienteList.as_view(), name="clientes_list"),

@@ -1,3 +1,4 @@
+from enum import auto
 import re
 from django import http
 from django.shortcuts import render, redirect
@@ -135,7 +136,7 @@ def agregar_avatar(request):
     
     
 
-@staff_member_required
+
 def autos(request):
     if request.method == "POST":
         
@@ -153,6 +154,7 @@ def vendedores(request):
     vendedores = Vendedor.objects.all()
     return render(request,'AutosApp/vendedores.html', {'vendedores': vendedores})
 
+@staff_member_required
 def clientes(request):
     clientes = Cliente.objects.all()
     return render(request,'AutosApp/clientes.html', {'clientes': clientes})
@@ -193,6 +195,7 @@ def crear_cliente(request):
     formulario = ClienteFormulario()
     return render(request, 'AutosApp/formularios_clientes.html', {"form": formulario})
 
+@staff_member_required
 def eliminar_cliente(request,cliente_id):
     
      cliente = Cliente.objects.get(id=cliente_id)
@@ -200,6 +203,7 @@ def eliminar_cliente(request,cliente_id):
      
      return redirect("clientes")
  
+@staff_member_required
 def editar_cliente(request,cliente_id):
     cliente = Cliente.objects.get(id=cliente_id)
 
@@ -223,6 +227,58 @@ def editar_cliente(request,cliente_id):
     formulario = ClienteFormulario(initial={"nombre":cliente.nombre, "apellido":cliente.apellido, "auto_comprado": cliente.auto_comprado, "vendedor_nombre": cliente.vendedor_nombre})
     
     return render(request,"AutosApp/formularios_clientes.html",{"form":formulario})
+
+@staff_member_required
+def crear_auto(request):
+    if request.method == "POST":
+        
+        formulario = AutoFormulario(request.POST)
+        
+        if formulario.is_valid():
+            info = formulario.cleaned_data
+            auto = Auto(marca = info["marca"], modelo = info["modelo"], año = info["año"], precio = info["precio"])
+            auto.save()
+            
+            return redirect("autos")
+            
+        return render(request, 'AutosApp/formularios_autos.html', {"form": formulario})
+
+    formulario = AutoFormulario()
+    return render(request, 'AutosApp/formularios_autos.html', {"form": formulario})
+
+@staff_member_required
+def eliminar_auto(request,auto_id):
+     auto = Auto.objects.get(id=auto_id)
+     auto.delete()
+     
+     return redirect("autos")
+
+@staff_member_required
+def editar_auto(request,auto_id):
+    auto = Auto.objects.get(id=auto_id)
+
+    if request.method == "POST":
+
+        formulario = AutoFormulario(request.POST)
+
+        if formulario.is_valid():
+            
+            info_auto = formulario.cleaned_data
+            
+            auto.marca = info_auto["marca"]
+            auto.modelo = info_auto["modelo"]
+            auto.año = info_auto["año"]
+            auto.precio = info_auto["precio"]
+            auto.save()
+
+            return redirect("autos")
+
+    # get
+    formulario = AutoFormulario(initial={"marca":auto.marca, "modelo":auto.modelo, "año": auto.año, "precio": auto.precio,})
+    
+    return render(request,"AutosApp/formularios_autos.html",{"form":formulario})
+
+
 
 class ClienteList(ListView):
     model = Cliente

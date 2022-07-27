@@ -18,7 +18,10 @@ Concesionario - Vehiculos disponibles
                     {% csrf_token %}
                     <input class="flex-grow-0 form-control mr-sm-2" type="search" name="search" placeholder="Buscar por marca" aria-label="Search">
                     <button class="btn btn-outline-success text-nowrap ms-3 my-2 my-sm-0" type="submit"> <i class="bi bi-search"></i> Buscar</button>
-                    
+                    {% if user.is_staff %}
+                        <a class="btn btn-outline-success text-nowrap ms-3 my-2 my-sm-0" href="{% url 'crear_auto' %}"> <i class="bi bi-plus-lg"></i> Agregar Vehiculo</a>
+                    {% endif %}
+
                 </form>
             </div>
         </div>
@@ -46,6 +49,20 @@ Concesionario - Vehiculos disponibles
                         <td> {{auto.modelo}} </td>
                         <td> {{auto.año}} </td>
                         <td> {{auto.precio}} </td>
+                        <td>
+                           {% if user.is_authenticated %}
+                                {% if user.is_staff %}
+                                    <a href="{% url 'editar_auto' auto.id %}" class="text-primary badge badge-primary text-decoration-none"> <i class="bi bi-pencil-square"></i> Editar</a>
+                                    <a href="{% url 'eliminar_auto' auto.id %}" class="text-danger badge badge-danger text-decoration-none"> <i class="bi bi-x-square"></i> Eliminar</a>
+                                {% endif %}
+                            {% endif %}
+                            {% comment %}
+                            {% url 'editar_auto' auto.id %}
+                            {% url 'eliminar_auto' auto.id %}
+                            {% endcomment %}   
+
+
+                        </td>
                     </tr>
                     {% endfor %}
                 </table>
