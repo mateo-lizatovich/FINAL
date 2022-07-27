@@ -1,18 +1,16 @@
-Instalar django
-
+-Instalar django:
 python -m pip install django
-Aplicar cambios en base de datos
 
+-Aplicar cambios en base de datos:
 python manage.py makemigrations
 python manage.py migrate
 
-Iniciar servidor
-
+-Iniciar servidor:
 python manage.py runserver
-Crear usuario administrador
 
+-Crear usuario administrador:
 python manage.py createsuperuser
 
-para ingresar como admin :
+-Para ingresar como admin :
 usuario: mateo
 contraseña: mateo12345
