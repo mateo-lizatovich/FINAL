@@ -14,3 +14,7 @@ python manage.py createsuperuser
 -Para ingresar como admin :
 usuario: mateo
 contraseña: mateo12345
+
+-Para ingresar como usuario:
+usuario: lucia
+contraseña: lucia12345
