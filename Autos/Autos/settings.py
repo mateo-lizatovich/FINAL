@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-o_))&j9gq2@oq!hg1nip&c#-r+@%^-5i=95b#iw4b=lidk%t_5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['autosapp2022.herokuapp.com']
+ALLOWED_HOSTS = [
+    'autosapp2022.herokuapp.com',
+]
 
 
 # Application definition
