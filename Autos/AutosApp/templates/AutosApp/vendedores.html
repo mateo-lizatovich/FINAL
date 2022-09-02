@@ -20,12 +20,12 @@ Concesionario - Vendedores
                                 <td> Apellido </td>
                                         
                             </thead>
-                            
+                            {% for vendedor in vendedores %}
                             <tr>
                                 <td> {{vendedor.nombre}} </td>
                                 <td> {{vendedor.apellido}} </td>
                             </tr>
-                            
+                            {% endfor %}
                         </table>
                         <br><br><br><br><br>
                     </div>
