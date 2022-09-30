@@ -94,7 +94,7 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME' : 'AutosApp',
+        'NAME' : 'autosappdb',
         'USER' : 'postgres',
         'PASSWORD' : 'tyrionlannister2022',
         'HOST': 'localhost',
